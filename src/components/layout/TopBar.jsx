@@ -28,11 +28,11 @@ function TopBar({ contactItems = [], quickActions = [] }) {
         return
       }
 
-      window.location.hash = targetSelector
+      window.history.pushState(null, '', targetSelector)
       return
     }
 
-    window.location.href = href
+    window.location.assign(href)
   }
 
   return (

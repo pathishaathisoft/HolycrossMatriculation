@@ -1,7 +1,5 @@
 import { createSceneMedia } from './createPlaceholderMedia.js'
-import mainCoverImage from '../assets/project-photos/main-cover.png'
-import photoTwo from '../assets/project-photos/photo-2.jpg'
-import photoThree from '../assets/project-photos/photo-3.jpg'
+import { mediaAssets } from './mediaAssets.js'
 
 export const heroSlides = [
   {
@@ -75,12 +73,12 @@ export const announcementModal = {
   title: 'Institution-wide achievement announcement',
   subtitle: 'Use this modal for circulars, admissions, accreditations, or celebration posters.',
   body: 'Designed as a reusable overlay with placeholder text and poster artwork so your future client content can be swapped in from one data file.',
-  image: photoThree,
+  image: mediaAssets.posters.achievement,
   poster: {
     eyebrow: 'Holy Cross Higher Secondary School',
     title: 'Hearty Congratulations',
-    image: photoThree,
-    alt: 'School achievement poster',
+    image: mediaAssets.posters.achievement,
+    alt: 'Holy Cross achievement poster',
     ribbon: '+2 Results',
     score: 'Outstanding Performance',
     caption: 'Academic Achievement',
@@ -307,7 +305,7 @@ export const featureCards = [
 ]
 
 export const highlightsSection = {
-  image: photoThree,
+  image: mediaAssets.posters.results,
   title: 'Why this template works for education websites',
   description:
     'The dark blue and gold presentation echoes traditional institutional branding while the component system keeps the codebase modern, maintainable, and ready for future data integration.',
@@ -353,39 +351,18 @@ export const eventsGallery = {
   items: [
     {
       title: 'Cultural Day',
-      image: createSceneMedia({
-        title: 'Cultural Day',
-        subtitle: 'Event Gallery',
-        width: 900,
-        height: 700,
-        background: ['#c57a48', '#6f2631'],
-        accent: '#ffe089',
-        glow: '#fff4b8',
-      }),
+      image: mediaAssets.events.culturalDay,
+      alt: 'Cultural day celebration at Holy Cross school',
     },
     {
       title: 'Academic Showcase',
-      image: createSceneMedia({
-        title: 'Academic Showcase',
-        subtitle: 'Event Gallery',
-        width: 900,
-        height: 700,
-        background: ['#485f9e', '#23345f'],
-        accent: '#f5c55d',
-        glow: '#fff0bc',
-      }),
+      image: mediaAssets.events.academicShowcase,
+      alt: 'Academic showcase and student achievement poster',
     },
     {
       title: 'Campus Rally',
-      image: createSceneMedia({
-        title: 'Campus Rally',
-        subtitle: 'Event Gallery',
-        width: 900,
-        height: 700,
-        background: ['#4c7c52', '#17382a'],
-        accent: '#ffcf59',
-        glow: '#f5f3c8',
-      }),
+      image: mediaAssets.events.campusRally,
+      alt: 'Campus rally and school announcement poster',
     },
   ],
 }
@@ -400,25 +377,25 @@ export const recruitersSection = {
       id: 'main-cover',
       title: 'Main Campus Cover',
       description: 'Primary detailed photo shown in large introduction-style layout.',
-      image: mainCoverImage,
+      image: mediaAssets.campus.mainCover,
     },
     {
       id: 'poster-1',
       title: 'Admission Notice',
       description: 'Uploaded supporting image shown as part of the gallery.',
-      image: photoTwo,
+      image: mediaAssets.posters.admission,
     },
     {
       id: 'poster-2',
       title: 'Academic Achievement Poster',
       description: 'Uploaded supporting image shown as part of the gallery.',
-      image: photoThree,
+      image: mediaAssets.posters.results,
     },
   ],
 }
 
 export const footerData = {
-  background: mainCoverImage,
+  background: mediaAssets.campus.mainCover,
   contact: {
     name: 'Holy Cross Matriculation Higher Secondary School',
     address: 'KVS Street Alngudi, Pudukkottai, Tamil Nadu 622301',
