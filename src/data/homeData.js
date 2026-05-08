@@ -8,13 +8,7 @@ export const heroSlides = [
     title: 'Best education for a future-ready academic journey.',
     description:
       'A bold homepage hero inspired by traditional college websites, designed to highlight admissions, achievements, and campus identity with flexible placeholder content.',
-    image: createSceneMedia({
-      title: 'School Excellence',
-      subtitle: 'Structured Home Banner',
-      background: ['#244d86', '#0a1f43'],
-      accent: '#d9b45b',
-      glow: '#fbf1b5',
-    }),
+    image: mediaAssets.hero.campus,
     primaryAction: { label: 'Explore Programs', href: '#programs' },
     secondaryAction: { label: 'View Prospectus', href: '#prospectus' },
     stats: [
@@ -29,13 +23,7 @@ export const heroSlides = [
     title: 'Build a homepage that balances trust, warmth, and academic credibility.',
     description:
       'This slide layout gives institutions space for student life, academic messaging, and clear calls to action without hardcoding any real client content.',
-    image: createSceneMedia({
-      title: 'Student Community',
-      subtitle: 'Responsive Template Design',
-      background: ['#0d2757', '#1d4b82'],
-      accent: '#e2c56f',
-      glow: '#fff0b0',
-    }),
+    image: mediaAssets.hero.activity,
     primaryAction: { label: 'Campus Life', href: '#campus-life' },
     secondaryAction: { label: 'See Events', href: '#events' },
     stats: [
@@ -50,13 +38,7 @@ export const heroSlides = [
     title: 'Highlight innovation, support systems, and institution-wide growth.',
     description:
       'The hero module is reusable across colleges, schools, and training institutes with centralized data for slide text, metrics, and action links.',
-    image: createSceneMedia({
-      title: 'Research Growth',
-      subtitle: 'Customizable Slide Content',
-      background: ['#18295f', '#071126'],
-      accent: '#d0a546',
-      glow: '#fff5c6',
-    }),
+    image: mediaAssets.hero.cultural,
     primaryAction: { label: 'Research Cell', href: '#research' },
     secondaryAction: { label: 'Download Brochure', href: '#brochure' },
     stats: [
@@ -199,15 +181,7 @@ export const programsSection = {
       category: 'STEM',
       description: 'Hands-on science labs, computer exposure, and a future-ready technology track.',
       icon: 'science',
-      image: createSceneMedia({
-        title: 'STEM Program',
-        subtitle: 'Science & Technology',
-        width: 900,
-        height: 700,
-        background: ['#244d86', '#0a1f43'],
-        accent: '#9fe870',
-        glow: '#e8ffd8',
-      }),
+      image: mediaAssets.programs.scienceStem,
       cta: { label: 'Learn More', href: '#contact' },
     },
     {
@@ -215,15 +189,7 @@ export const programsSection = {
       category: 'Sports',
       description: 'Training, discipline, and physical development through indoor and outdoor sports.',
       icon: 'sports',
-      image: createSceneMedia({
-        title: 'Sports Program',
-        subtitle: 'Fitness & Discipline',
-        width: 900,
-        height: 700,
-        background: ['#0f3b62', '#122b52'],
-        accent: '#ffd166',
-        glow: '#fff0bc',
-      }),
+      image: mediaAssets.programs.sportsDevelopment,
       cta: { label: 'Learn More', href: '#contact' },
     },
     {
@@ -231,15 +197,7 @@ export const programsSection = {
       category: 'Arts',
       description: 'Music, drawing, performance, and cultural activities that build expression and confidence.',
       icon: 'palette',
-      image: createSceneMedia({
-        title: 'Arts Program',
-        subtitle: 'Creative Growth',
-        width: 900,
-        height: 700,
-        background: ['#6b2d76', '#22103e'],
-        accent: '#ffcf59',
-        glow: '#ffe9c0',
-      }),
+      image: mediaAssets.programs.artsCulture,
       cta: { label: 'Learn More', href: '#contact' },
     },
     {

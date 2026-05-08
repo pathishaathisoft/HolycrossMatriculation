@@ -59,12 +59,17 @@ function HeroSlider({ slides = [] }) {
             </div>
           </div>
 
-          <div className="relative min-h-[360px] lg:min-h-full">
-            <img
-              src={activeSlide.image}
-              alt={activeSlide.title}
-              className="h-full w-full object-cover"
-            />
+          <div className="relative min-h-[360px] overflow-hidden lg:min-h-full">
+            {slides.map((slide, index) => (
+              <img
+                key={slide.id}
+                src={slide.image}
+                alt={slide.title}
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
+                  index === activeIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            ))}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(8,26,58,0.05),_rgba(8,26,58,0.5))]" />
 
             <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between gap-4">

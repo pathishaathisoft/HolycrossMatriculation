@@ -3,6 +3,10 @@ import Container from '../common/Container.jsx'
 import mainCoverImage from '../../assets/project-photos/main-cover.png'
 import { Mail, MapPin, Phone } from 'lucide-react'
 
+const CONTACT_API_URL =
+  import.meta.env.VITE_CONTACT_API_URL ||
+  'https://api-prod.aathisoft.com/webportal/public/website-contact'
+
 function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
@@ -36,8 +40,8 @@ function ContactSection() {
     const subject = sanitizeValue(formData.subject)
     const message = sanitizeValue(formData.message)
 
-    if (!fullName || !email || !subject || !message) {
-      setErrorMessage('Please fill in your name, email, subject, and message.')
+    if (!fullName || !email || !phoneNumber || !subject || !message) {
+      setErrorMessage('Please fill in your name, email, phone number, subject, and message.')
       setIsSubmitting(false)
       return
     }
@@ -48,25 +52,18 @@ function ContactSection() {
       return
     }
 
-    const endpoint =
-      import.meta.env.VITE_CONTACT_API_URL ||
-      'https://api-prod.aathisoft.com/webportal/public/website-contact'
-
     const payload = {
       fullName,
       email,
+      phoneNumber,
       subject,
       message,
       pageUrl: window.location.href,
       source: 'aathisoft-website',
     }
 
-    if (phoneNumber) {
-      payload.phoneNumber = phoneNumber
-    }
-
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(CONTACT_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,11 +71,14 @@ function ContactSection() {
         body: JSON.stringify(payload),
       })
 
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`)
+      const data = await response.json()
+      console.log('Contact API response:', data)
+
+      if (!response.ok || data?.success !== true) {
+        throw new Error(data?.message || 'Unable to send message right now. Please try again.')
       }
 
-      setStatusMessage('Your message has been sent successfully.')
+      setStatusMessage(data?.message || 'Contact request submitted successfully')
       setFormData({
         name: '',
         email: '',
@@ -88,7 +88,9 @@ function ContactSection() {
       })
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : 'Unable to send message right now. Please try again.',
+        error instanceof Error
+          ? error.message
+          : 'Unable to send message right now. Please try again.',
       )
     } finally {
       setIsSubmitting(false)
