@@ -71,7 +71,14 @@ function ContactSection() {
         body: JSON.stringify(payload),
       })
 
-      const data = await response.json()
+      let data = null
+
+      try {
+        data = await response.json()
+      } catch {
+        data = null
+      }
+
       console.log('Contact API response:', data)
 
       if (!response.ok || data?.success !== true) {
