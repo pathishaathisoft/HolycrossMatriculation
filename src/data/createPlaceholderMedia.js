@@ -47,7 +47,7 @@ function createBaseScene({
 export function createSceneMedia(options) {
   return createBaseScene(options)
 }
-
+  
 export function createPosterMedia({
   title,
   subtitle,

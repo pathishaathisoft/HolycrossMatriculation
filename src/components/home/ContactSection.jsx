@@ -5,7 +5,9 @@ import { Mail, MapPin, Phone } from 'lucide-react'
 
 const CONTACT_API_URL =
   import.meta.env.VITE_CONTACT_API_URL ||
-  'https://api-prod.aathisoft.com/webportal/public/website-contact'
+  (import.meta.env.DEV
+    ? '/api/website-contact'
+    : 'https://api-prod.aathisoft.com/webportal/public/website-contact')
 
 function ContactSection() {
   const [formData, setFormData] = useState({
@@ -66,6 +68,7 @@ function ContactSection() {
       const response = await fetch(CONTACT_API_URL, {
         method: 'POST',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
