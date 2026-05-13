@@ -3,25 +3,8 @@ import Container from '../common/Container.jsx'
 import mainCoverImage from '../../assets/project-photos/main-cover.png'
 import { Mail, MapPin, Phone } from 'lucide-react'
 
-const CONTACT_API_URL =
-  import.meta.env.VITE_CONTACT_API_URL ||
-  (import.meta.env.DEV
-    ? '/api/website-contact'
-    : 'https://api-prod.aathisoft.com/webportal/public/website-contact')
-
-const MIN_MESSAGE_LENGTH = 10
-
-function getContactApiErrorMessage(data) {
-  const validationMessage = data?.error?.details?.[0]?.message
-  const validationPath = data?.error?.details?.[0]?.path?.replace('/', '')
-  const apiMessage = data?.error?.message || data?.message
-
-  if (validationMessage && validationPath) {
-    return `${validationPath}: ${validationMessage}`
-  }
-
-  return apiMessage || 'Unable to send message right now. Please try again.'
-}
+const GOOGLE_SCRIPT_URL =
+  import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE'
 
 function ContactSection() {
   const [formData, setFormData] = useState({
@@ -52,12 +35,11 @@ function ContactSection() {
 
     const fullName = sanitizeValue(formData.name)
     const email = sanitizeEmail(formData.email)
-    const phoneNumber = sanitizePhone(formData.phone)
-    const subject = sanitizeValue(formData.subject)
+    const phone = sanitizePhone(formData.phone)
     const message = sanitizeValue(formData.message)
 
-    if (!fullName || !email || !phoneNumber || !subject || !message) {
-      setErrorMessage('Please fill in your name, email, phone number, subject, and message.')
+    if (!fullName || !email || !phone || !message) {
+      setErrorMessage('Please fill in your name, email, phone number, and message.')
       setIsSubmitting(false)
       return
     }
@@ -68,47 +50,45 @@ function ContactSection() {
       return
     }
 
-    if (message.length < MIN_MESSAGE_LENGTH) {
-      setErrorMessage(`Message must be at least ${MIN_MESSAGE_LENGTH} characters.`)
+    if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') {
+      setErrorMessage('Google Apps Script URL is not configured.')
       setIsSubmitting(false)
       return
     }
 
     const payload = {
-      fullName,
+      name: fullName,
       email,
-      phoneNumber,
-      subject,
+      phone,
       message,
-      pageUrl: window.location.href,
-      source: 'aathisoft-website',
     }
 
     try {
-      const response = await fetch(CONTACT_API_URL, {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
         },
-        body: JSON.stringify(payload),
+        body: new URLSearchParams(payload).toString(),
       })
 
-      let data = null
+      const responseText = await response.text()
+      let data = {}
 
       try {
-        data = await response.json()
+        data = responseText ? JSON.parse(responseText) : {}
       } catch {
-        data = null
+        data = {}
       }
 
-      console.log('Contact API response:', data)
+      console.log('Google Sheets contact response:', data)
 
-      if (!response.ok || data?.success !== true) {
-        throw new Error(getContactApiErrorMessage(data))
+      if (!response.ok || data?.success === false) {
+        throw new Error(data?.message || 'Unable to send message right now. Please try again.')
       }
 
-      setStatusMessage(data?.message || 'Contact request submitted successfully')
+      setStatusMessage(data?.message || 'Contact request submitted successfully.')
       setFormData({
         name: '',
         email: '',
@@ -212,7 +192,6 @@ function ContactSection() {
                   value={formData.message}
                   onChange={handleChange}
                   rows={6}
-                  minLength={MIN_MESSAGE_LENGTH}
                   placeholder="Write your message here"
                   className="w-full rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white"
                 />
