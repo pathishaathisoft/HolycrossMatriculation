@@ -1,11 +1,14 @@
+import { mediaAssets } from './mediaAssets.js'
+
 export const siteConfig = {
   brand: {
+    logo: mediaAssets.logo,
     mark: 'IC',
-    preTitle: 'Template Institution Identity',
+    preTitle: 'Learn to serve, serve to people',
     name: 'HOLY CROSS MATRICULATION HIGHER SECONDARY SCHOOL',
     description:
-      'Autonomous-style academic template with structured sections for admissions, campus highlights, notices, events, and institutional trust signals.',
-    tags: ['Admissions Open', 'Affiliated Institution', 'Quality-Focused Campus'],
+      'A reputed school at KVS Street, Alangudi, focused on disciplined learning, campus care, and all-round student growth.',
+    tags: ['Admissions Open', 'Recognized by Government of Tamilnadu', 'Quality-Focused Campus'],
   },
   topBar: {
     contactItems: [
@@ -17,7 +20,7 @@ export const siteConfig = {
       {
         type: 'phone',
         label: '+9443636251',
-        href: 'cell:+98653115089',
+        href: 'tel:+919443636251',
       },
       {
         type: 'location',
@@ -35,12 +38,11 @@ export const siteConfig = {
     { shortLabel: 'UG', label: 'Recognition' },
     { shortLabel: 'NA', label: 'Accreditation' },
     { shortLabel: 'RF', label: 'Research' },
-
   ],
-    navbarCta: {
-      label: 'Apply Now',
+  navbarCta: {
+    label: 'Apply Now',
     href: '#contact',
-    },
+  },
   homepageSectionOrder: [
     'TopBar',
     'MainHeader',

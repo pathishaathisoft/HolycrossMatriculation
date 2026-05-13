@@ -1,13 +1,12 @@
-import { createSceneMedia } from './createPlaceholderMedia.js'
 import { mediaAssets } from './mediaAssets.js'
 
 export const heroSlides = [
   {
     id: 'campus-excellence',
-    eyebrow: 'Institutional Template',
+    eyebrow: 'Holy Cross Matriculation',
     title: 'Best education for a future-ready academic journey.',
     description:
-      'A bold homepage hero inspired by traditional college websites, designed to highlight admissions, achievements, and campus identity with flexible placeholder content.',
+      'A caring school community in Alangudi with strong academics, campus activities, and student-focused guidance.',
     image: mediaAssets.hero.campus,
     primaryAction: { label: 'Explore Programs', href: '#programs' },
     secondaryAction: { label: 'View Prospectus', href: '#prospectus' },
@@ -20,9 +19,9 @@ export const heroSlides = [
   {
     id: 'student-community',
     eyebrow: 'Student Community',
-    title: 'Build a homepage that balances trust, warmth, and academic credibility.',
+    title: 'Learning spaces that balance discipline, confidence, and joyful participation.',
     description:
-      'This slide layout gives institutions space for student life, academic messaging, and clear calls to action without hardcoding any real client content.',
+      'Students grow through classroom learning, sports, cultural programs, and daily school routines built around care.',
     image: mediaAssets.hero.activity,
     primaryAction: { label: 'Campus Life', href: '#campus-life' },
     secondaryAction: { label: 'See Events', href: '#events' },
@@ -35,9 +34,9 @@ export const heroSlides = [
   {
     id: 'research-growth',
     eyebrow: 'Academic Progress',
-    title: 'Highlight innovation, support systems, and institution-wide growth.',
+    title: 'Practical learning, strong mentoring, and steady academic progress.',
     description:
-      'The hero module is reusable across colleges, schools, and training institutes with centralized data for slide text, metrics, and action links.',
+      'Our academic environment supports students with labs, activities, result-focused mentoring, and regular communication.',
     image: mediaAssets.hero.cultural,
     primaryAction: { label: 'Research Cell', href: '#research' },
     secondaryAction: { label: 'Download Brochure', href: '#brochure' },
@@ -47,14 +46,29 @@ export const heroSlides = [
       { label: 'MoUs', value: '18' },
     ],
   },
+  {
+    id: 'campus-entrance',
+    eyebrow: 'Campus Identity',
+    title: 'A safe, vibrant campus for academics, play, and character building.',
+    description:
+      'Real campus spaces, outdoor activities, and guided learning come together to support every student.',
+    image: mediaAssets.hero.entrance,
+    primaryAction: { label: 'Visit Campus', href: '#contact' },
+    secondaryAction: { label: 'View Gallery', href: '#gallery' },
+    stats: [
+      { label: 'Campus', value: 'Open' },
+      { label: 'Transport', value: 'Active' },
+      { label: 'Care', value: 'Daily' },
+    ],
+  },
 ]
 
 export const announcementModal = {
   active: true,
   eyebrow: 'Featured Update',
   title: 'Institution-wide achievement announcement',
-  subtitle: 'Use this modal for circulars, admissions, accreditations, or celebration posters.',
-  body: 'Designed as a reusable overlay with placeholder text and poster artwork so your future client content can be swapped in from one data file.',
+  subtitle: 'Celebrating student achievement and school updates from Holy Cross Matriculation.',
+  body: 'This announcement area can be used for admissions, results, awards, circulars, and important school notices.',
   image: mediaAssets.posters.achievement,
   poster: {
     eyebrow: 'Holy Cross Higher Secondary School',
@@ -94,15 +108,15 @@ export const newsInfoSection = {
     },
   ],
   visionMission: {
-    heading: 'Institutional Development Plan',
-    watermark: 'ACADEMIC TEMPLATE',
+    heading: 'Vision & Mission',
+    watermark: 'HOLY CROSS',
     vision: [
-      'To present academic excellence through an adaptable digital identity.',
-      'To support institutions with reusable content blocks for announcements, notices, and student resources.',
+      'To guide students with values, discipline, knowledge, and confidence for future opportunities.',
+      'To create a safe school environment where every child can learn, participate, and grow.',
     ],
     mission: [
-      'To keep homepage content modular, centralized, and easy to update.',
-      'To provide a trustworthy visual system for education-focused organizations.',
+      'To provide strong classroom teaching, practical exposure, and personal care for each learner.',
+      'To encourage academic progress, sports, cultural activity, service, and responsible citizenship.',
     ],
   },
   quickLinks: [
@@ -116,58 +130,42 @@ export const newsInfoSection = {
   noticeColumns: [
     {
       title: 'Circulars & Notices',
-      items: ['Campus drive invitation notice', 'Internal assessment schedule'],
+      items: ['Admissions and school update notices', 'Assessment and activity schedules'],
     },
     {
       title: 'Announcements',
-      items: ['New programme launch update', 'Template alumni meet notice'],
+      items: ['Campus events and celebration updates', 'Parent communication and school reminders'],
     },
     {
       title: 'Achievements',
-      items: ['Department award placeholder', 'Academic rank update'],
+      items: ['Academic result highlights', 'Student participation and award updates'],
     },
   ],
 }
 
 export const introductionSection = {
   eyebrow: 'Introduction',
-  title: 'A reusable institutional template for colleges and schools',
+  title: 'Holy Cross Matriculation Higher Secondary School, Alangudi',
   paragraphs: [
-    'This section mirrors the classic introduction area seen on many academic websites: a strong image block on the left and a confident summary on the right.',
-    'All copy remains placeholder-based so the eventual institution can replace history, mission, and campus details without touching component structure.',
+    'Holy Cross Matriculation Higher Secondary School serves students with a balanced focus on academics, discipline, activities, and personal growth.',
+    'Our campus brings together classrooms, transport, play areas, lab learning, and supportive staff so children can learn with confidence every day.',
   ],
-  image: createSceneMedia({
-    title: 'Introduction Block',
-    subtitle: 'Image Placeholder',
-    width: 900,
-    height: 1100,
-    background: ['#8db8df', '#46688f'],
-    accent: '#ecd58f',
-    glow: '#eef8ff',
-  }),
+  image: mediaAssets.campus.entrance,
 }
 
 export const programsSection = {
   eyebrow: 'Programs',
-  title: 'Explore academic programs built for growth and confidence',
+  title: 'Explore learning programs built for growth and confidence',
   description:
-    'A curated set of school programs, departments, and learning tracks presented with a premium visual system for easy scanning on desktop and mobile.',
+    'A clear view of academics, STEM learning, sports, arts, and activity-based development at Holy Cross.',
   categories: ['All', 'Academic', 'Sports', 'Arts', 'STEM'],
   featured: {
     title: 'Academic Excellence Track',
     category: 'Academic',
     description:
-      'A flagship learning path focused on structured academics, assessment support, and result-driven mentoring.',
+      'A focused academic path with classroom discipline, lab exposure, assessment support, and mentoring.',
     badge: 'Featured Program',
-    image: createSceneMedia({
-      title: 'Academic Track',
-      subtitle: 'Featured Program',
-      width: 1200,
-      height: 900,
-      background: ['#1f3e73', '#0e1831'],
-      accent: '#f0bf4c',
-      glow: '#f8f0c8',
-    }),
+    image: mediaAssets.programs.featuredAcademic,
     stats: [
       { label: 'Classes', value: 'VI-XII' },
       { label: 'Support', value: 'Mentorship' },
@@ -205,15 +203,7 @@ export const programsSection = {
       category: 'Academic',
       description: 'Problem-solving, logical reasoning, and performance-focused math coaching.',
       icon: 'calculator',
-      image: createSceneMedia({
-        title: 'Math Track',
-        subtitle: 'Academic Program',
-        width: 900,
-        height: 700,
-        background: ['#173f5f', '#0d1b33'],
-        accent: '#f2c14e',
-        glow: '#f9f1c1',
-      }),
+      image: mediaAssets.programs.mathematics,
       cta: { label: 'Apply Now', href: '#contact' },
     },
   ],
@@ -263,39 +253,31 @@ export const featureCards = [
 ]
 
 export const highlightsSection = {
-  image: mediaAssets.posters.results,
-  title: 'Why this template works for education websites',
+  image: mediaAssets.facilities.playgroundClose,
+  title: 'Why families choose Holy Cross',
   description:
-    'The dark blue and gold presentation echoes traditional institutional branding while the component system keeps the codebase modern, maintainable, and ready for future data integration.',
+    'The school combines academic care, active campus life, practical facilities, and values-based guidance for students.',
   items: [
     {
       title: 'About Courses',
-      description: 'Explain programme eligibility, duration, and curriculum structure.',
+      description: 'Structured learning support across school levels with regular academic guidance.',
       icon: 'chart',
     },
     {
       title: 'Books & Library',
-      description: 'Summarize library access, reference materials, digital catalogues, and journals.',
+      description: 'Learning resources and reading habits that strengthen classroom understanding.',
       icon: 'books',
     },
     {
       title: 'Certified Teachers',
-      description: 'Showcase faculty strength, certifications, and mentoring support.',
+      description: 'Experienced staff guide students with discipline, care, and mentoring support.',
       icon: 'teacher',
     },
   ],
 }
 
 export const statsSection = {
-  background: createSceneMedia({
-    title: 'Institution Snapshot',
-    subtitle: 'Numbers and Milestones',
-    width: 1600,
-    height: 900,
-    background: ['#1e487b', '#0d1e3f'],
-    accent: '#f0bf4c',
-    glow: '#f9f0c0',
-  }),
+  background: mediaAssets.campus.front,
   stats: [
     { label: 'Students', value: '1228', icon: 'users' },
     { label: 'Our Staffs', value: '106', icon: 'teacher' },
@@ -314,13 +296,18 @@ export const eventsGallery = {
     },
     {
       title: 'Academic Showcase',
-      image: mediaAssets.events.academicShowcase,
-      alt: 'Academic showcase and student achievement poster',
+      image: mediaAssets.events.greenActivity,
+      alt: 'Students and staff in a campus learning activity',
     },
     {
       title: 'Campus Rally',
-      image: mediaAssets.events.campusRally,
-      alt: 'Campus rally and school announcement poster',
+      image: mediaAssets.events.sportsDay,
+      alt: 'Students playing volleyball on campus',
+    },
+    {
+      title: 'Transport Facility',
+      image: mediaAssets.events.transportLineup,
+      alt: 'School buses lined up on campus',
     },
   ],
 }
@@ -330,34 +317,15 @@ export const recruitersSection = {
   title: 'Project Detailed Photos',
   description:
     'Your original image is featured first as the main large cover photo. Additional uploaded photos appear below as gallery thumbnails and can be viewed in the same display area.',
-  photos: [
-    {
-      id: 'main-cover',
-      title: 'Main Campus Cover',
-      description: 'Primary detailed photo shown in large introduction-style layout.',
-      image: mediaAssets.campus.mainCover,
-    },
-    {
-      id: 'poster-1',
-      title: 'Admission Notice',
-      description: 'Uploaded supporting image shown as part of the gallery.',
-      image: mediaAssets.posters.admission,
-    },
-    {
-      id: 'poster-2',
-      title: 'Academic Achievement Poster',
-      description: 'Uploaded supporting image shown as part of the gallery.',
-      image: mediaAssets.posters.results,
-    },
-  ],
+  photos: mediaAssets.allPhotos,
 }
 
 export const footerData = {
-  background: mediaAssets.campus.mainCover,
+  background: mediaAssets.campus.front,
   contact: {
     name: 'Holy Cross Matriculation Higher Secondary School',
     address: 'KVS Street Alngudi, Pudukkottai, Tamil Nadu 622301',
-    phone: '+00 1234 567 890 / +00 1234 567 891',
+    phone: '+91 94436 36251',
     email: 'holycross@gmail.com',
   },
   quickLinks: ['RTI', 'Undertaking', 'Campus Life', 'Alumni', 'Telephone Directory'],

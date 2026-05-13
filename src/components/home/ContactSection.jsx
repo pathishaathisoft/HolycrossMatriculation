@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Container from '../common/Container.jsx'
-import mainCoverImage from '../../assets/project-photos/main-cover.png'
 import { Mail, MapPin, Phone } from 'lucide-react'
+import { mediaAssets } from '../../data/mediaAssets.js'
 
 const GOOGLE_SCRIPT_URL =
   import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE'
@@ -220,7 +220,7 @@ function ContactSection() {
           <div className="overflow-hidden rounded-[2rem] border border-[color:var(--color-line)] bg-[color:var(--color-navy-950)] shadow-[var(--shadow-card)]">
             <div className="relative h-full min-h-[320px]">
               <img
-                src={mainCoverImage}
+                src={mediaAssets.campus.front}
                 alt="Contact banner"
                 className="absolute inset-0 h-full w-full object-cover"
               />

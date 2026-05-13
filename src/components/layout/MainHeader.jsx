@@ -1,5 +1,3 @@
-import photoFour from '../../assets/project-photos/photo-4 (2).jpeg'
-
 function MainHeader({ brand, accreditationBadges = [] }) {
   return (
     <header className="relative overflow-hidden border-b border-[color:var(--color-line)] bg-white">
@@ -7,7 +5,7 @@ function MainHeader({ brand, accreditationBadges = [] }) {
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-8 lg:px-8">
         <div className="mx-auto flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-[6px] border-[color:var(--color-gold-300)] bg-[radial-gradient(circle_at_top,_#ffffff,_#dce8f7)] shadow-[var(--shadow-card)] sm:h-28 sm:w-28 lg:mx-0">
           <img
-            src={photoFour}
+            src={brand.logo}
             alt={brand?.name ? `${brand.name} logo` : "Institution logo"}
             className="h-full w-full object-cover"
           />

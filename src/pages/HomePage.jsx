@@ -23,21 +23,54 @@ import {
   statsSection,
 } from '../data/homeData.js'
 
+function AnchorTargets({ ids = [] }) {
+  return (
+    <>
+      {ids.map((id) => (
+        <span key={id} id={id} className="block scroll-mt-32" aria-hidden="true" />
+      ))}
+    </>
+  )
+}
+
 function HomePage() {
   return (
     <Layout>
       <AnnouncementModal announcement={announcementModal} />
       <main className="relative overflow-hidden">
         <HeroSlider slides={heroSlides} />
+        <AnchorTargets
+          ids={[
+            'about',
+            'overview',
+            'announcements',
+            'all-notices',
+            'staff-login',
+            'student-login',
+            'naac',
+            'iqac',
+            'calendar',
+            'prospectus',
+          ]}
+        />
         <NewsInfoSection section={newsInfoSection} />
+        <AnchorTargets ids={['introduction']} />
         <IntroductionSection section={introductionSection} />
+        <AnchorTargets ids={['academics', 'departments']} />
         <ProgramsSection section={programsSection} />
+        <AnchorTargets ids={['facilities']} />
         <FeatureCardsGrid cards={featureCards} />
+        <AnchorTargets ids={['leadership', 'administration']} />
         <HighlightsSection section={highlightsSection} />
+        <AnchorTargets ids={['stats']} />
         <StatsSection section={statsSection} />
+        <AnchorTargets ids={['activities', 'events', 'gallery', 'campus-life', 'research']} />
         <EventsGallery section={eventsGallery} />
+        <AnchorTargets ids={['brochure']} />
         <RecruitersSection section={recruitersSection} />
+        <AnchorTargets ids={['admissions', 'how-to-apply', 'scholarships', 'feedback', 'help-desk']} />
         <ContactSection />
+        <AnchorTargets ids={['committees']} />
       </main>
     </Layout>
   )
