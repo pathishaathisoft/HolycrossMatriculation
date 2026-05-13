@@ -12,7 +12,7 @@ export const navLinks = [
     label: "Academics",
     href: "#academics",
     children: [
-      { label: "Departments", href: "#departments" },
+      { label: "Groups & Clubs", href: "#groups-clubs" },
       { label: "Programs", href: "#programs" },
     ],
   },

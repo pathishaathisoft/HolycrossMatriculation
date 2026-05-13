@@ -11,9 +11,7 @@ export const heroSlides = [
     primaryAction: { label: 'Explore Programs', href: '#programs' },
     secondaryAction: { label: 'View Prospectus', href: '#prospectus' },
     stats: [
-      { label: 'Departments', value: '12+' },
-      { label: 'Clubs', value: '24' },
-      { label: 'Placements', value: '92%' },
+      
     ],
   },
   {
@@ -121,9 +119,9 @@ export const newsInfoSection = {
   },
   quickLinks: [
     { label: 'Staff Login', href: '#staff-login', icon: 'user' },
-    { label: 'Student Login', href: '#student-login', icon: 'graduation' },
-    { label: 'NAAC / SSR', href: '#naac', icon: 'badge' },
-    { label: 'IQAC', href: '#iqac', icon: 'clipboard' },
+    { label: 'Student Login', href: '#student-login', icon: 'student' },
+    
+    
     { label: 'Academic Calendar', href: '#calendar', icon: 'calendar' },
     { label: 'Prospectus', href: '#prospectus', icon: 'book' },
   ],
@@ -175,8 +173,8 @@ export const programsSection = {
   },
   programs: [
     {
-      title: 'Science & STEM',
-      category: 'STEM',
+      title: 'Science Laboratory',
+      category: 'LAB',
       description: 'Hands-on science labs, computer exposure, and a future-ready technology track.',
       icon: 'science',
       image: mediaAssets.programs.scienceStem,
@@ -190,17 +188,10 @@ export const programsSection = {
       image: mediaAssets.programs.sportsDevelopment,
       cta: { label: 'Learn More', href: '#contact' },
     },
+   
     {
-      title: 'Arts & Culture',
-      category: 'Arts',
-      description: 'Music, drawing, performance, and cultural activities that build expression and confidence.',
-      icon: 'palette',
-      image: mediaAssets.programs.artsCulture,
-      cta: { label: 'Learn More', href: '#contact' },
-    },
-    {
-      title: 'Mathematics Lab',
-      category: 'Academic',
+      title: 'Plantinng Trees & Green Activity',
+      category: 'STEM',
       description: 'Problem-solving, logical reasoning, and performance-focused math coaching.',
       icon: 'calculator',
       image: mediaAssets.programs.mathematics,
@@ -259,7 +250,7 @@ export const highlightsSection = {
     'The school combines academic care, active campus life, practical facilities, and values-based guidance for students.',
   items: [
     {
-      title: 'About Courses',
+      title: 'About Groups & Clubs',
       description: 'Structured learning support across school levels with regular academic guidance.',
       icon: 'chart',
     },
@@ -290,9 +281,9 @@ export const eventsGallery = {
   title: 'Our Events',
   items: [
     {
-      title: 'Cultural Day',
-      image: mediaAssets.events.culturalDay,
-      alt: 'Cultural day celebration at Holy Cross school',
+      title: 'Annual Day',
+      image: mediaAssets.events.annualDay,
+      alt: 'Annual day celebration at Holy Cross school',
     },
     {
       title: 'Academic Showcase',

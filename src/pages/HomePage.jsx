@@ -47,8 +47,8 @@ function HomePage() {
             'all-notices',
             'staff-login',
             'student-login',
-            'naac',
-            'iqac',
+            
+             
             'calendar',
             'prospectus',
           ]}
