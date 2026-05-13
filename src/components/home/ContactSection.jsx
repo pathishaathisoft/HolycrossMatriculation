@@ -9,6 +9,20 @@ const CONTACT_API_URL =
     ? '/api/website-contact'
     : 'https://api-prod.aathisoft.com/webportal/public/website-contact')
 
+const MIN_MESSAGE_LENGTH = 10
+
+function getContactApiErrorMessage(data) {
+  const validationMessage = data?.error?.details?.[0]?.message
+  const validationPath = data?.error?.details?.[0]?.path?.replace('/', '')
+  const apiMessage = data?.error?.message || data?.message
+
+  if (validationMessage && validationPath) {
+    return `${validationPath}: ${validationMessage}`
+  }
+
+  return apiMessage || 'Unable to send message right now. Please try again.'
+}
+
 function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
@@ -54,6 +68,12 @@ function ContactSection() {
       return
     }
 
+    if (message.length < MIN_MESSAGE_LENGTH) {
+      setErrorMessage(`Message must be at least ${MIN_MESSAGE_LENGTH} characters.`)
+      setIsSubmitting(false)
+      return
+    }
+
     const payload = {
       fullName,
       email,
@@ -85,7 +105,7 @@ function ContactSection() {
       console.log('Contact API response:', data)
 
       if (!response.ok || data?.success !== true) {
-        throw new Error(data?.message || 'Unable to send message right now. Please try again.')
+        throw new Error(getContactApiErrorMessage(data))
       }
 
       setStatusMessage(data?.message || 'Contact request submitted successfully')
@@ -192,6 +212,7 @@ function ContactSection() {
                   value={formData.message}
                   onChange={handleChange}
                   rows={6}
+                  minLength={MIN_MESSAGE_LENGTH}
                   placeholder="Write your message here"
                   className="w-full rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white"
                 />
