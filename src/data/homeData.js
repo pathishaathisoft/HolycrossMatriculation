@@ -167,6 +167,155 @@ export const introductionSection = {
   image: mediaAssets.campus.entrance,
 }
 
+export const programsSection = {
+  eyebrow: 'Programs',
+
+  title: 'Curriculum and Student Enrichment',
+
+  description:
+    'Our academic and extracurricular programs support a balanced education with strong values, science, arts, and sports.',
+
+  categories: ['All', 'Science', 'Sports', 'Arts', 'Academic'],
+
+  featured: {
+    badge: 'Featured Program',
+    category: 'Academic Excellence',
+    title: 'Holistic Curriculum with Activity-Based Learning',
+    description:
+      'Students benefit from a curriculum that blends academics, practical labs, and co-curricular activities for deeper understanding.',
+    image: mediaAssets.programs.featuredAcademic,
+    stats: [
+      { label: 'Labs', value: '16' },
+      { label: 'Activities', value: '120+' },
+      { label: 'Awards', value: '40+' },
+    ],
+    cta: { label: 'Apply Now', href: '#admissions' },
+  },
+
+  programs: [
+    {
+      title: 'Science and STEM Learning',
+      description:
+        'Hands-on science, lab experiments, and STEM projects inspire critical thinking and innovation.',
+      icon: 'science',
+      category: 'Science',
+      image: mediaAssets.programs.scienceStem,
+      cta: { label: 'View Details', href: '#contact' },
+    },
+    {
+      title: 'Sports and Physical Education',
+      description:
+        'Structured physical education and sports coaching promote fitness, teamwork, and discipline.',
+      icon: 'sports',
+      category: 'Sports',
+      image: mediaAssets.programs.sportsDevelopment,
+      cta: { label: 'Join Sports', href: '#contact' },
+    },
+    {
+      title: 'Arts, Culture & Creativity',
+      description:
+        'Creative arts, music, and cultural activities enhance student expression and confidence.',
+      icon: 'palette',
+      category: 'Arts',
+      image: mediaAssets.programs.artsCulture,
+      cta: { label: 'Explore Arts', href: '#contact' },
+    },
+    {
+      title: 'Maths and Academic Support',
+      description:
+        'Strong academic coaching and mentoring help every student reach their potential.',
+      icon: 'calculator',
+      category: 'Academic',
+      image: mediaAssets.programs.mathematics,
+      cta: { label: 'Learn More', href: '#contact' },
+    },
+  ],
+
+  cta: {
+    title: 'Admissions are open for the new academic year',
+    description:
+      'Register your child for a learning environment that emphasizes academic achievement, values, and personal growth.',
+    actions: [
+      { label: 'Apply Online', href: '#admissions' },
+      { label: 'Download Prospectus', href: '#prospectus', variant: 'outline' },
+    ],
+  },
+}
+
+export const featureCards = [
+  {
+    title: 'Strong academics',
+    description: 'Experienced faculty and standards-based teaching help students achieve top academic results.',
+    icon: 'graduation',
+    featured: true,
+  },
+  {
+    title: 'Safe campus',
+    description: 'A disciplined and supportive school environment keeps students safe and focused on learning.',
+    icon: 'shield',
+  },
+  {
+    title: 'Active student life',
+    description: 'Sports, culture, and campus clubs give students opportunities to grow beyond the classroom.',
+    icon: 'users',
+  },
+]
+
+export const highlightsSection = {
+  title: 'What makes Holy Cross special',
+  description:
+    'A blend of supportive teaching, modern facilities, and student-led activities creates the ideal atmosphere for growth.',
+  image: mediaAssets.facilities.playgroundWide,
+  items: [
+    {
+      title: 'Expert teaching teams',
+      description: 'Teachers guide academic learning with personalized support and strong classroom engagement.',
+      icon: 'teacher',
+    },
+    {
+      title: 'Modern science labs',
+      description: 'Fully equipped labs make science lessons practical, safe, and inspiring.',
+      icon: 'flask',
+    },
+    {
+      title: 'Sport and wellness',
+      description: 'Sports programs and physical education build health, discipline, and team spirit.',
+      icon: 'users',
+    },
+  ],
+}
+
+export const statsSection = {
+  background: mediaAssets.campus.overview,
+  stats: [
+    { icon: 'teacher', label: 'Dedicated Teachers', value: '80+' },
+    { icon: 'users', label: 'Active Students', value: '900+' },
+    { icon: 'book-open', label: 'Groups & Labs', value: '16' },
+    { icon: 'shield', label: 'Safe Campus', value: '24/7' },
+  ],
+}
+
+export const eventsGallery = {
+  title: 'Campus Events & Activities',
+  items: [
+    {
+      title: 'Cultural Celebration',
+      image: mediaAssets.events.culturalDay,
+      alt: 'Students celebrating a cultural event',
+    },
+    {
+      title: 'Academic Showcase',
+      image: mediaAssets.events.academicShowcase,
+      alt: 'Academic showcase presentation for students',
+    },
+    {
+      title: 'Sports Day Rally',
+      image: mediaAssets.events.campusRally,
+      alt: 'Students participating in a school sports day',
+    },
+  ],
+}
+
 export const recruitersSection = {
   eyebrow: 'School Gallery',
 
