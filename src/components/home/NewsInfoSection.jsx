@@ -18,7 +18,7 @@ const quickLinkIcons = {
   user: UserRound,
 }
 
-function NewsInfoSection({ section }) {
+function NewsInfoSection({ section, onStaffLoginClick }) {
   return (
     <Container className="py-16 lg:py-20">
       <div className="grid gap-5 rounded-[2rem] border border-[color:var(--color-line)] bg-white p-5 shadow-[var(--shadow-soft)] lg:grid-cols-[0.9fr_1.55fr_0.9fr] lg:p-6">
@@ -88,11 +88,15 @@ function NewsInfoSection({ section }) {
           <div className="space-y-4 p-6">
             {section.quickLinks.map((link) => {
               const Icon = quickLinkIcons[link.icon] ?? UserRound
+              const isStaffLoginLink = link.href === '#staff-login'
 
               return (
                 <Button
                   key={link.label}
-                  href={link.href}
+                  as={isStaffLoginLink ? 'button' : 'a'}
+                  href={isStaffLoginLink ? undefined : link.href}
+                  type={isStaffLoginLink ? 'button' : undefined}
+                  onClick={isStaffLoginLink ? onStaffLoginClick : undefined}
                   variant="dark"
                   className="w-full justify-center gap-2 rounded-xl px-4 py-4 text-sm tracking-[0.14em]"
                 >
