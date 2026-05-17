@@ -15,7 +15,7 @@ function Layout({ children }) {
       />
       <MainHeader
         brand={siteConfig.brand}
-        accreditationBadges={siteConfig.accreditationBadges}
+        schoolLevelCards={siteConfig.schoolLevelCards}
       />
       <Navbar links={navLinks} cta={siteConfig.navbarCta} />
       {children}

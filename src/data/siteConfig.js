@@ -34,10 +34,12 @@ export const siteConfig = {
       { label: 'Search', href: '#contact' },
     ],
   },
-  accreditationBadges: [
-    { shortLabel: 'UG', label: 'Recognition' },
-    { shortLabel: 'NA', label: 'Accreditation' },
-    { shortLabel: 'RF', label: 'Research' },
+  schoolLevelCards: [
+    { shortLabel: 'LKG & UKG', label: 'Kindergarten' },
+    { shortLabel: 'I - V', label: 'Primary' },
+    { shortLabel: 'VI - VIII', label: 'Middle School' },
+    { shortLabel: 'IX - X', label: 'Secondary' },
+    { shortLabel: 'XI - XII', label: 'Higher Secondary', isActive: true },
   ],
   navbarCta: {
     label: 'Apply Now',
