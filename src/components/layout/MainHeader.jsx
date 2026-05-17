@@ -1,4 +1,4 @@
-function MainHeader({ brand, accreditationBadges = [] }) {
+function MainHeader({ brand, schoolLevelCards = [] }) {
   return (
     <header className="relative overflow-hidden border-b border-[color:var(--color-line)] bg-white">
       <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,_var(--color-gold-500),_var(--color-gold-300),_var(--color-gold-500))]" />
@@ -36,15 +36,29 @@ function MainHeader({ brand, accreditationBadges = [] }) {
         </div>
 
         <div className="grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-4 lg:grid-cols-2">
-          {accreditationBadges.map((badge) => (
+          {schoolLevelCards.map((badge) => (
             <div
               key={badge.label}
-              className="flex min-h-18 min-w-20 flex-col items-center justify-center rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-sand-50)] px-2.5 py-3 text-center shadow-sm sm:min-h-20 sm:min-w-24 sm:px-3 sm:py-4"
+              className={`group flex min-h-18 min-w-20 flex-col items-center justify-center rounded-2xl border px-2.5 py-3 text-center shadow-sm transition duration-300 sm:min-h-20 sm:min-w-24 sm:px-3 sm:py-4 ${
+                badge.isActive
+                  ? 'border-[color:var(--color-gold-500)] bg-white shadow-[0_14px_24px_rgba(13,39,87,0.14)] ring-1 ring-[rgba(199,154,43,0.18)]'
+                  : 'border-[color:var(--color-line)] bg-[color:var(--color-sand-50)] hover:-translate-y-1 hover:border-[color:var(--color-gold-300)] hover:bg-white hover:shadow-[0_14px_24px_rgba(13,39,87,0.14)]'
+              }`}
             >
-              <span className="font-serif text-base font-bold text-[color:var(--color-navy-900)] sm:text-lg">
+              <span
+                className={`font-serif font-bold leading-tight sm:text-lg ${
+                  badge.shortLabel.length > 8 ? 'text-sm sm:text-base' : 'text-base'
+                } ${badge.isActive ? 'text-[color:var(--color-gold-500)]' : 'text-[color:var(--color-navy-900)] group-hover:text-[color:var(--color-gold-500)]'}`}
+              >
                 {badge.shortLabel}
               </span>
-              <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-700)] sm:text-[11px] sm:tracking-[0.22em]">
+              <span
+                className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px] sm:tracking-[0.22em] ${
+                  badge.isActive
+                    ? 'text-[color:var(--color-navy-900)]'
+                    : 'text-[color:var(--color-ink-700)] group-hover:text-[color:var(--color-navy-900)]'
+                }`}
+              >
                 {badge.label}
               </span>
             </div>
