@@ -1,101 +1,128 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Container from '../common/Container.jsx'
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { AlertCircle, CheckCircle2, LoaderCircle, Mail, MapPin, Phone } from 'lucide-react'
 import { mediaAssets } from '../../data/mediaAssets.js'
+import { submitWebsiteContact } from '../../services/websiteContactService.js'
 
-const GOOGLE_SCRIPT_URL =
-  import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE'
+const initialFormData = {
+  fullName: '',
+  email: '',
+  phoneNumber: '',
+  subject: '',
+  message: '',
+}
+
+const initialErrors = {
+  fullName: '',
+  email: '',
+  phoneNumber: '',
+  subject: '',
+  message: '',
+}
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  })
+  const [formData, setFormData] = useState(initialFormData)
+  const [errors, setErrors] = useState(initialErrors)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [statusMessage, setStatusMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [toastMessage, setToastMessage] = useState('')
+
+  useEffect(() => {
+    if (!toastMessage) {
+      return undefined
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setToastMessage('')
+    }, 4000)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [toastMessage])
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormData((current) => ({ ...current, [name]: value }))
+
+    setErrors((current) => ({ ...current, [name]: '' }))
+
+    if (statusMessage) {
+      setStatusMessage('')
+    }
+
+    if (errorMessage) {
+      setErrorMessage('')
+    }
   }
 
-  const sanitizeValue = (value) => value.trim()
-  const sanitizeEmail = (value) => value.trim().replace(/\s+/g, '')
-  const sanitizePhone = (value) => value.trim().replace(/\s+/g, '')
+  const validateForm = () => {
+    const trimmedData = {
+      fullName: formData.fullName.trim(),
+      email: formData.email.trim().replace(/\s+/g, ''),
+      phoneNumber: formData.phoneNumber.trim().replace(/\s+/g, ''),
+      subject: formData.subject.trim(),
+      message: formData.message.trim(),
+    }
+
+    const nextErrors = { ...initialErrors }
+
+    if (!trimmedData.fullName) {
+      nextErrors.fullName = 'Full name is required.'
+    }
+
+    if (!trimmedData.email) {
+      nextErrors.email = 'Email is required.'
+    } else if (!emailPattern.test(trimmedData.email)) {
+      nextErrors.email = 'Enter a valid email address.'
+    }
+
+    if (!trimmedData.phoneNumber) {
+      nextErrors.phoneNumber = 'Phone number is required.'
+    }
+
+    if (!trimmedData.subject) {
+      nextErrors.subject = 'Subject is required.'
+    }
+
+    if (!trimmedData.message) {
+      nextErrors.message = 'Message is required.'
+    }
+
+    const isValid = !Object.values(nextErrors).some(Boolean)
+
+    return {
+      trimmedData,
+      nextErrors,
+      isValid,
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    setIsSubmitting(true)
     setStatusMessage('')
     setErrorMessage('')
 
-    const fullName = sanitizeValue(formData.name)
-    const email = sanitizeEmail(formData.email)
-    const phone = sanitizePhone(formData.phone)
-    const message = sanitizeValue(formData.message)
+    const { trimmedData, nextErrors, isValid } = validateForm()
 
-    if (!fullName || !email || !phone || !message) {
-      setErrorMessage('Please fill in your name, email, phone number, and message.')
-      setIsSubmitting(false)
+    setErrors(nextErrors)
+
+    if (!isValid) {
       return
     }
 
-    if (!email.includes('@') || email.startsWith('@') || email.endsWith('@')) {
-      setErrorMessage('Please enter a valid email address.')
-      setIsSubmitting(false)
-      return
-    }
-
-    if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') {
-      setErrorMessage('Google Apps Script URL is not configured.')
-      setIsSubmitting(false)
-      return
-    }
-
-    const payload = {
-      name: fullName,
-      email,
-      phone,
-      message,
-    }
+    setIsSubmitting(true)
 
     try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        },
-        body: new URLSearchParams(payload).toString(),
-      })
+      const response = await submitWebsiteContact(trimmedData)
 
-      const responseText = await response.text()
-      let data = {}
+      console.log('Contact form API response:', response)
 
-      try {
-        data = responseText ? JSON.parse(responseText) : {}
-      } catch {
-        data = {}
-      }
-
-      console.log('Google Sheets contact response:', data)
-
-      if (!response.ok || data?.success === false) {
-        throw new Error(data?.message || 'Unable to send message right now. Please try again.')
-      }
-
-      setStatusMessage(data?.message || 'Contact request submitted successfully.')
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-      })
+      setStatusMessage(response.message || 'Contact request submitted successfully.')
+      setToastMessage(response.message || 'Contact request submitted successfully.')
+      setFormData(initialFormData)
+      setErrors(initialErrors)
     } catch (error) {
       setErrorMessage(
         error instanceof Error
@@ -110,6 +137,12 @@ function ContactSection() {
   return (
     <section id="contact" className="bg-[color:var(--color-surface)] py-16 lg:py-20">
       <Container>
+        {toastMessage ? (
+          <div className="fixed right-4 top-4 z-[85] max-w-sm rounded-2xl border border-emerald-200 bg-white px-4 py-3 text-sm font-semibold text-emerald-700 shadow-[var(--shadow-soft)]">
+            {toastMessage}
+          </div>
+        ) : null}
+
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[color:var(--color-gold-500)]">
             Contact
@@ -131,13 +164,21 @@ function ContactSection() {
                     Your Name
                   </span>
                   <input
-                    name="name"
-                    value={formData.name}
+                    name="fullName"
+                    value={formData.fullName}
                     onChange={handleChange}
                     type="text"
                     placeholder="Enter your name"
-                    className="w-full rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white"
+                    aria-invalid={Boolean(errors.fullName)}
+                    className={`w-full rounded-2xl border bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white ${
+                      errors.fullName ? 'border-red-500 bg-red-50' : 'border-[color:var(--color-line)]'
+                    }`}
                   />
+                  {errors.fullName ? (
+                    <span className="mt-2 block text-sm font-medium text-red-600">
+                      {errors.fullName}
+                    </span>
+                  ) : null}
                 </label>
                 <label className="block">
                   <span className="mb-2 block text-sm font-semibold text-[color:var(--color-navy-900)]">
@@ -149,8 +190,16 @@ function ContactSection() {
                     onChange={handleChange}
                     type="email"
                     placeholder="Enter your email"
-                    className="w-full rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white"
+                    aria-invalid={Boolean(errors.email)}
+                    className={`w-full rounded-2xl border bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white ${
+                      errors.email ? 'border-red-500 bg-red-50' : 'border-[color:var(--color-line)]'
+                    }`}
                   />
+                  {errors.email ? (
+                    <span className="mt-2 block text-sm font-medium text-red-600">
+                      {errors.email}
+                    </span>
+                  ) : null}
                 </label>
               </div>
 
@@ -160,13 +209,23 @@ function ContactSection() {
                     Phone Number
                   </span>
                   <input
-                    name="phone"
-                    value={formData.phone}
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
                     onChange={handleChange}
                     type="tel"
                     placeholder="Enter your phone number"
-                    className="w-full rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white"
+                    aria-invalid={Boolean(errors.phoneNumber)}
+                    className={`w-full rounded-2xl border bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white ${
+                      errors.phoneNumber
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-[color:var(--color-line)]'
+                    }`}
                   />
+                  {errors.phoneNumber ? (
+                    <span className="mt-2 block text-sm font-medium text-red-600">
+                      {errors.phoneNumber}
+                    </span>
+                  ) : null}
                 </label>
                 <label className="block">
                   <span className="mb-2 block text-sm font-semibold text-[color:var(--color-navy-900)]">
@@ -178,8 +237,16 @@ function ContactSection() {
                     onChange={handleChange}
                     type="text"
                     placeholder="Enter subject"
-                    className="w-full rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white"
+                    aria-invalid={Boolean(errors.subject)}
+                    className={`w-full rounded-2xl border bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white ${
+                      errors.subject ? 'border-red-500 bg-red-50' : 'border-[color:var(--color-line)]'
+                    }`}
                   />
+                  {errors.subject ? (
+                    <span className="mt-2 block text-sm font-medium text-red-600">
+                      {errors.subject}
+                    </span>
+                  ) : null}
                 </label>
               </div>
 
@@ -193,26 +260,45 @@ function ContactSection() {
                   onChange={handleChange}
                   rows={6}
                   placeholder="Write your message here"
-                  className="w-full rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white"
+                  aria-invalid={Boolean(errors.message)}
+                  className={`w-full rounded-2xl border bg-[color:var(--color-sand-50)] px-4 py-3 text-base outline-none transition focus:border-[color:var(--color-gold-500)] focus:bg-white ${
+                    errors.message ? 'border-red-500 bg-red-50' : 'border-[color:var(--color-line)]'
+                  }`}
                 />
+                {errors.message ? (
+                  <span className="mt-2 block text-sm font-medium text-red-600">
+                    {errors.message}
+                  </span>
+                ) : null}
               </label>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex w-full items-center justify-center rounded-full bg-[linear-gradient(135deg,_var(--color-gold-500),_var(--color-gold-300))] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-[color:var(--color-navy-950)] transition hover:brightness-105 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,_var(--color-gold-500),_var(--color-gold-300))] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-[color:var(--color-navy-950)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-75 sm:w-auto"
               >
-                {isSubmitting ? 'Submitting...' : 'Submit Now'}
+                {isSubmitting ? (
+                  <>
+                    <LoaderCircle className="h-4 w-4 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  'Submit Now'
+                )}
               </button>
 
               {statusMessage ? (
-                <p className="text-sm font-medium text-[color:var(--color-navy-900)]">
-                  {statusMessage}
-                </p>
+                <div className="flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
+                  <span>{statusMessage}</span>
+                </div>
               ) : null}
 
               {errorMessage ? (
-                <p className="text-sm font-medium text-red-600">{errorMessage}</p>
+                <div className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                  <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
               ) : null}
             </form>
           </div>
