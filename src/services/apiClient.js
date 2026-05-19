@@ -5,16 +5,29 @@ const defaultJsonHeaders = {
 
 async function parseResponse(response) {
   const responseText = await response.text()
+  const contentType = response.headers.get('content-type') || ''
 
   if (!responseText) {
-    return {}
+    return {
+      data: {},
+      rawText: '',
+      contentType,
+    }
   }
 
   try {
-    return JSON.parse(responseText)
+    return {
+      data: JSON.parse(responseText),
+      rawText: responseText,
+      contentType,
+    }
   } catch {
     return {
-      message: responseText,
+      data: {
+        message: responseText,
+      },
+      rawText: responseText,
+      contentType,
     }
   }
 }
@@ -32,11 +45,13 @@ export async function postJson(url, payload, options = {}) {
     ...restOptions,
   })
 
-  const data = await parseResponse(response)
+  const { data, rawText, contentType } = await parseResponse(response)
 
   return {
     ok: response.ok,
     status: response.status,
     data,
+    rawText,
+    contentType,
   }
 }
